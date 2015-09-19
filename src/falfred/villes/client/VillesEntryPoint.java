@@ -82,11 +82,6 @@ public class VillesEntryPoint implements EntryPoint {
 			public void onSuccess(List<Ville> result) {
 				for(Ville v : result) {
 					HorizontalPanel hPanel = new HorizontalPanel();
-//					Label villeCP = new Label(v.getCode_postal());
-//					hPanel.add(villeCP);
-//					Label villeNom = new Label(v.getVille());
-//					hPanel.add(villeNom);
-//					hPanel.setSpacing(10);
 					Label ville = new Label(v.toString());
 					hPanel.add(ville);
 					vPanel.add(hPanel);

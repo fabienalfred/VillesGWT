@@ -5,5 +5,4 @@
 	<source path="client" />
 	<source path="shared" />
 	<entry-point class="falfred.villes.client.VillesEntryPoint"></entry-point>
-	<servlet class="falfred.villes.server.VillesServiceImpl" path="/VillesServiceImpl" />
 </module>
