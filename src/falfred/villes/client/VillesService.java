@@ -10,4 +10,5 @@ import falfred.villes.shared.Ville;
 @RemoteServiceRelativePath("VillesService")
 public interface VillesService extends RemoteService {
 	List<Ville> getAllVilles();
+	List<Ville> getVillesByCodePostal(String cp);
 }

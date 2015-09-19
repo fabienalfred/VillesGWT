@@ -3,7 +3,6 @@ package falfred.villes.shared;
 import java.io.Serializable;
 
 public class Ville implements Serializable {
-	private static final long serialVersionUID = 1L;
 
 	private int kp_ville;
 	private String region;
@@ -12,7 +11,21 @@ public class Ville implements Serializable {
 	private String code_postal;
 	private double lat;
 	private double lng;
+	private Ville supervisor;
+	
 
+	public Ville() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public int getkp_ville() {
+		return this.kp_ville;
+	}
+	
+	public void setkp_ville(int kp_ville) {
+		this.kp_ville = kp_ville;
+	}
+	
 	public String getRegion() {
 		return region;
 	}
@@ -60,5 +73,24 @@ public class Ville implements Serializable {
 	public void setLng(double lng) {
 		this.lng = lng;
 	}
+	
+	public Ville getSupervisor() {
+		return supervisor;
+	}
 
+	public void setSupervisor(Ville supervisor) {
+		this.supervisor = supervisor;
+	}
+
+	@Override
+	public String toString() {
+		return "Ville [kp_ville : " + kp_ville 
+				+ ", region : " + region 
+				+ ", département : " + departement 
+				+ ", ville : " + ville 
+				+ ", code postal : " + code_postal 
+				+ ", latitude : " + lat 
+				+ ", longitude : " + lng;
+	}
+	
 }

@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import falfred.villes.shared.Ville;
@@ -24,15 +25,27 @@ public class VillesEntryPoint implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 		Button showAllButton = new Button("All");
-		RootPanel.get("container").add(showAllButton);
+		RootPanel.get("menu").add(showAllButton);
 		showAllButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				showAll();				
 			}
 		});
+		
+		final TextBox cpBox = new TextBox();
+		RootPanel.get("menu").add(cpBox);
+		Button showByCPButton = new Button("Go");
+		RootPanel.get("menu").add(showByCPButton);
+		showByCPButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				showByCP(cpBox.getText());				
+			}
+		});
+		
 		Button clearButton = new Button("Clear");
-		RootPanel.get("display").add(clearButton);
+		RootPanel.get("menu").add(clearButton);
 		clearButton.addClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -42,25 +55,49 @@ public class VillesEntryPoint implements EntryPoint {
 	}
 	
 	public void showAll() {
+		vPanel.clear();
 		service.getAllVilles(new AsyncCallback<List<Ville>>() {
-			
 			@Override
 			public void onSuccess(List<Ville> result) {
-				vPanel.clear();
 				for(Ville v : result) {
 					HorizontalPanel hPanel = new HorizontalPanel();
-					Label region = new Label(v.getRegion());
-					hPanel.add(region);
+					Label villeNom = new Label(v.getVille());
+					hPanel.add(villeNom);
 					vPanel.add(hPanel);
 				}
-				RootPanel.get("display").add(vPanel);
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				RootPanel.get("display").add(new Label("ERROR"));
+				vPanel.add(new Label("ERROR"));
 			}
 		});
+		RootPanel.get("display").add(vPanel);
+	}
+	
+	public void showByCP(String cp) {
+		vPanel.clear();
+		service.getVillesByCodePostal(cp, new AsyncCallback<List<Ville>>() {
+			@Override
+			public void onSuccess(List<Ville> result) {
+				for(Ville v : result) {
+					HorizontalPanel hPanel = new HorizontalPanel();
+//					Label villeCP = new Label(v.getCode_postal());
+//					hPanel.add(villeCP);
+//					Label villeNom = new Label(v.getVille());
+//					hPanel.add(villeNom);
+//					hPanel.setSpacing(10);
+					Label ville = new Label(v.toString());
+					hPanel.add(ville);
+					vPanel.add(hPanel);
+				}
+			}
+			@Override
+			public void onFailure(Throwable caught) {
+				vPanel.add(new Label("ERROR"));
+			}
+		});
+		RootPanel.get("display").add(vPanel);
 	}
 
 }
